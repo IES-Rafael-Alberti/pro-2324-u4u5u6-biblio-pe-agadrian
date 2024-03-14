@@ -4,20 +4,6 @@ interface Elemento{
     val id: String
 }
 
-interface InterfaceLibro: Elemento{
-    val titulo: String
-    val autor: String
-    val anioPubli: Int
-    val tematica: String
-    val estado: EstadoLibro
-}
-
-
-interface InterfaceUsuario{
-    val id: Int
-    val nombre: String
-    val librosPrestados: MutableList<Libro>
-}
 
 
 fun main() {
