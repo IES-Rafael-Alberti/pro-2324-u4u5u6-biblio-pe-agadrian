@@ -20,7 +20,7 @@ class RegistroPrestamos {
             prestamosActuales[libro.getID()] = mutableListOf(infoPrestamo)
         }
 
-        if(libro.getEstado() == EstadoLibro.DISPONIBLE){
+        if(libro.getEstado() == EstadoElemento.DISPONIBLE){
             // Agregar prestamo a la lista de prestamos actuales
             prestamosActuales[libro.getID()]?.add("ID Usuario: ${usuario.id}") ?: GestorConsola.imprimirMensaje("Error al añadir el prestamo del libro con id: ${libro.getID()}")
 

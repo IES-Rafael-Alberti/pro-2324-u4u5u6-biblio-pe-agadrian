@@ -9,8 +9,8 @@ data class Libro(
     private val autor: String,
     private val anioPubli: Int,
     private val tematica: String,
-    private var estado: EstadoLibro = EstadoLibro.DISPONIBLE
-): Elemento{
+    private var estado: EstadoElemento = EstadoElemento.DISPONIBLE
+): Prestable{
     init {
         require(titulo.isNotBlank()) {"El titulo no puede estar vacio"}
         require(autor.isNotBlank()){"El autor no puede estar vacio"}
@@ -38,12 +38,12 @@ data class Libro(
         return tematica
     }
 
-    fun getEstado(): EstadoLibro{
+    fun getEstado(): EstadoElemento{
         return estado
     }
 
     fun modificarEstado(){
-        estado = if (estado == EstadoLibro.DISPONIBLE) EstadoLibro.PRESTADO else EstadoLibro.DISPONIBLE
+        estado = if (estado == EstadoElemento.DISPONIBLE) EstadoElemento.PRESTADO else EstadoElemento.DISPONIBLE
 
     }
 
@@ -55,7 +55,3 @@ data class Libro(
 
 
 
-enum class EstadoLibro{
-    DISPONIBLE,
-    PRESTADO
-}
