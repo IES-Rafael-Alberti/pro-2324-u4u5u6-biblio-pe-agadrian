@@ -39,10 +39,25 @@ class GestorBiblioteca(private val catalogo: Catalogo<Elemento>, private val reg
      * Si el libro esta disponible, retorna True, si no False
      */
     fun consultarDisponibilidad(libro: Libro): String{
-        if (libro.estado == EstadoLibro.DISPONIBLE) {
-            return "Libro ${libro.titulo} disponible"
+        if (libro.getEstado() == EstadoLibro.DISPONIBLE) {
+            return "Libro ${libro.getTitulo()} disponible"
         }
-        return "Libro ${libro.titulo} no disponible"
+        return "Libro ${libro.getTitulo()} no disponible"
+    }
+
+    fun consultarHistorialPrestamos(){
+        GestorConsola.imprimirMensaje("Historial de los libros prestados: ")
+        registroPrestamos.consultarHistorialTodosPrestamos()
+    }
+
+    fun consultarHistorialUsuario(usuario: Usuario){
+        GestorConsola.imprimirMensaje("Libros prestados al usuario ${usuario.nombre}: ")
+        registroPrestamos.consultarHistorialUsuario(usuario)
+    }
+
+    fun consultarHistorialPrestamosLibro(libro: Libro){
+        GestorConsola.imprimirMensaje("Historial de prestamos del libro: ${libro.getTitulo()}: ")
+        registroPrestamos.consultarHistorialPrestamosLibro(libro)
     }
 
 }

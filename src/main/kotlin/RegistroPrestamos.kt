@@ -13,31 +13,31 @@ class RegistroPrestamos {
      * Registra el prestamo de un libro
      */
     fun registrarPrestamo(libro: Libro, usuario: Usuario) {
-        val infoPrestamo = "ID Libro: ${libro.id} - Libro: ${libro.titulo} - Autor: ${libro.autor} - AñoPubliacion: ${libro.anioPubli} - Tematica: ${libro.tematica}"
+        val infoPrestamo = "ID Libro: ${libro.getID()} - Libro: ${libro.getTitulo()} - Autor: ${libro.getAutor()} - AñoPubliacion: ${libro.getAnioPubli()} - Tematica: ${libro.getTematica()}"
 
         // Verificar si la ID del libro ya tiene una lista de prestamos, si no la creamos
-        if (!prestamosActuales.containsKey(libro.id)) {
-            prestamosActuales[libro.id] = mutableListOf(infoPrestamo)
+        if (!prestamosActuales.containsKey(libro.getID())) {
+            prestamosActuales[libro.getID()] = mutableListOf(infoPrestamo)
         }
 
-        if(libro.estado == EstadoLibro.DISPONIBLE){
+        if(libro.getEstado() == EstadoLibro.DISPONIBLE){
             // Agregar prestamo a la lista de prestamos actuales
-            prestamosActuales[libro.id]?.add("ID Usuario: ${usuario.id}") ?: GestorConsola.imprimirMensaje("Error al añadir el prestamo del libro con id: ${libro.id}")
+            prestamosActuales[libro.getID()]?.add("ID Usuario: ${usuario.id}") ?: GestorConsola.imprimirMensaje("Error al añadir el prestamo del libro con id: ${libro.getID()}")
 
             //agregamos el libro prestado al usuario
             usuario.librosPrestados.add(libro)
-            GestorConsola.imprimirMensaje("Libro ${libro.titulo} prestado a ${usuario.nombre} correctamente")
+            GestorConsola.imprimirMensaje("Libro ${libro.getTitulo()} prestado a ${usuario.nombre} correctamente")
 
             // Registrar el préstamo en el historial
-            if (!historialPrestamos.containsKey(libro.id)) {
-                historialPrestamos[libro.id] = mutableListOf(infoPrestamo)
+            if (!historialPrestamos.containsKey(libro.getID())) {
+                historialPrestamos[libro.getID()] = mutableListOf(infoPrestamo)
             } else {
-                historialPrestamos[libro.id]?.add(infoPrestamo)
+                historialPrestamos[libro.getID()]?.add(infoPrestamo)
             }
 
-            libro.estado = EstadoLibro.PRESTADO
+            libro.modificarEstado()
         }else{
-            GestorConsola.imprimirMensaje("Error - El libro ${libro.titulo} esta prestado actualmente!")
+            GestorConsola.imprimirMensaje("Error - El libro ${libro.getTitulo()} esta prestado actualmente!")
         }
 
     }
@@ -46,12 +46,12 @@ class RegistroPrestamos {
      * Registra la devolucion de un libro. El libro se elimina de prestamos actuales.
      */
     fun registrarDevolucion(libro: Libro) {
-        if (prestamosActuales.containsKey(libro.id)) {
-            prestamosActuales.remove(libro.id)
-            libro.estado = EstadoLibro.DISPONIBLE
-            GestorConsola.imprimirMensaje("Devolución registrada con éxito para el libro con Nombre: ${libro.titulo} y ID ${libro.id}.")
+        if (prestamosActuales.containsKey(libro.getID())) {
+            prestamosActuales.remove(libro.getID())
+            libro.modificarEstado()
+            GestorConsola.imprimirMensaje("Devolución registrada con éxito para el libro con Nombre: ${libro.getTitulo()} y ID ${libro.getID()}.")
         } else {
-            GestorConsola.imprimirMensaje("Error - El libro con Titulo: ${libro.titulo}  y ID ${libro.id} no tiene préstamos activos.")
+            GestorConsola.imprimirMensaje("Error - El libro con Titulo: ${libro.getTitulo()}  y ID ${libro.getID()} no tiene préstamos activos.")
         }
     }
 
@@ -59,21 +59,28 @@ class RegistroPrestamos {
     /**
      * Retorna el historial de prestamos de un libro a traves de su uuid
      */
-    fun consultarHistorialLibros(libro: Libro): List<String>? {
-        if (historialPrestamos.containsKey(libro.id)){
-            return historialPrestamos[libro.id]?.toList()!!
+    fun consultarHistorialPrestamosLibro(libro: Libro) {
+        if (historialPrestamos.containsKey(libro.getID())){
+            return historialPrestamos.filter { it.key == libro.getID() }.forEach { println(it) }
         }
-        return null
+
     }
 
 
     /**
      * Retorna el historial de prestamos a una persona a traves de su id
      */
-    fun consultarHistorialUsuario(usuario: Usuario): List<Libro> {
-        return usuario.librosPrestados.toList()
+    fun consultarHistorialUsuario(usuario: Usuario) {
+        return usuario.librosPrestados.forEach{ println(it) }
     }
 
+
+    /**
+     * Retorna el historial de todos los prestamos
+     */
+    fun consultarHistorialTodosPrestamos(){
+        return historialPrestamos.forEach { println("${it.key} ->  ${it.value}") }
+    }
 
 
 }
