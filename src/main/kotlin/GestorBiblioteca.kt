@@ -38,9 +38,11 @@ class GestorBiblioteca(private val catalogo: Catalogo<Elemento>, private val reg
     /**
      * Si el libro esta disponible, retorna True, si no False
      */
-    fun consultarDisponibilidad(libro: Libro): Boolean{
-        if (libro.estado == EstadoLibro.DISPONIBLE) return true
-        return false
+    fun consultarDisponibilidad(libro: Libro): String{
+        if (libro.estado == EstadoLibro.DISPONIBLE) {
+            return "Libro ${libro.titulo} disponible"
+        }
+        return "Libro ${libro.titulo} no disponible"
     }
 
 }

@@ -26,6 +26,7 @@ class RegistroPrestamos {
 
             //agregamos el libro prestado al usuario
             usuario.librosPrestados.add(libro)
+            GestorConsola.imprimirMensaje("Libro ${libro.titulo} prestado a ${usuario.nombre} correctamente")
 
             // Registrar el préstamo en el historial
             if (!historialPrestamos.containsKey(libro.id)) {
@@ -36,7 +37,7 @@ class RegistroPrestamos {
 
             libro.estado = EstadoLibro.PRESTADO
         }else{
-            GestorConsola.imprimirMensaje("El libro esta prestado actualmente!")
+            GestorConsola.imprimirMensaje("Error - El libro ${libro.titulo} esta prestado actualmente!")
         }
 
     }
@@ -48,9 +49,9 @@ class RegistroPrestamos {
         if (prestamosActuales.containsKey(libro.id)) {
             prestamosActuales.remove(libro.id)
             libro.estado = EstadoLibro.DISPONIBLE
-            GestorConsola.imprimirMensaje("Devolución registrada con éxito para el libro con ID ${libro.id}.")
+            GestorConsola.imprimirMensaje("Devolución registrada con éxito para el libro con Nombre: ${libro.titulo} y ID ${libro.id}.")
         } else {
-            GestorConsola.imprimirMensaje("El libro con ID ${libro.id} no tiene préstamos activos.")
+            GestorConsola.imprimirMensaje("Error - El libro con Titulo: ${libro.titulo}  y ID ${libro.id} no tiene préstamos activos.")
         }
     }
 
@@ -73,9 +74,7 @@ class RegistroPrestamos {
         return usuario.librosPrestados.toList()
     }
 
-    fun consultarPrestamosActuales(): MutableSet<String> {
-        return prestamosActuales.keys
-    }
+
 
 }
 
