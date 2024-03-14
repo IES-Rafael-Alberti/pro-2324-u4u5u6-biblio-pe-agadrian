@@ -20,9 +20,9 @@ fun main() {
     val gestionBiblioteca = GestorBiblioteca(catalogo, registroPrestamos)
 
     // Agregar al menos tres libros al catálogo.
-    val libro = Libro(CreadoUUID.crearIDUnica(), "Don Tomas", "Tomatin", 2023, "El dueño y señor")
-    val libro2 = Libro(CreadoUUID.crearIDUnica(), "Recetas", "Arguiñano", 2020, "Comida")
-    val libro3 = Libro(CreadoUUID.crearIDUnica(), "Peras", "Peritas", 1970, "Peras grandes")
+    val libro = Libro(UtilidadesBiblioteca.CreadoUUID.crearIDUnica(), "Don Tomas", "Tomatin", 2023, "El dueño y señor")
+    val libro2 = Libro(UtilidadesBiblioteca.CreadoUUID.crearIDUnica(), "Recetas", "Arguiñano", 2020, "Comida")
+    val libro3 = Libro(UtilidadesBiblioteca.CreadoUUID.crearIDUnica(), "Peras", "Peritas", 1970, "Peras grandes")
 
     gestionBiblioteca.aniadirElementos(libro)
     gestionBiblioteca.aniadirElementos(libro2)
@@ -31,8 +31,8 @@ fun main() {
 
     // Realizar al menos dos préstamo y dos devoluciones. Tanto un préstamo, como una devolución tiene que ser errónea, debido al estado del libro.
 
-    val usuario1 = Usuario(CreadorIdUsers.crearIDUnica(), "Diego", mutableListOf())
-    val usuario2 = Usuario(CreadorIdUsers.crearIDUnica(), "Diegin", mutableListOf())
+    val usuario1 = Usuario(UtilidadesBiblioteca.CreadorIdUsers.crearIDUnica(), "Diego", mutableListOf())
+    val usuario2 = Usuario(UtilidadesBiblioteca.CreadorIdUsers.crearIDUnica(), "Diegin", mutableListOf())
 
     print("Prestando libro ${libro.titulo} a ${usuario1.nombre}... ")
     gestionBiblioteca.registrarPrestamo(libro, usuario1)
