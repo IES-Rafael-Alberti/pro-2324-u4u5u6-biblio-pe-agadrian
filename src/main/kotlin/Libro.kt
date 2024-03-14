@@ -10,7 +10,7 @@ data class Libro(
     private val anioPubli: Int,
     private val tematica: String,
     private var estado: EstadoElemento = EstadoElemento.DISPONIBLE
-): Prestable{
+): Prestable, Elemento{
     init {
         require(titulo.isNotBlank()) {"El titulo no puede estar vacio"}
         require(autor.isNotBlank()){"El autor no puede estar vacio"}
@@ -47,6 +47,13 @@ data class Libro(
 
     }
 
+    override fun prestar() {
+        TODO("Not yet implemented")
+    }
+
+    override fun devolver() {
+        TODO("Not yet implemented")
+    }
 
 
 }

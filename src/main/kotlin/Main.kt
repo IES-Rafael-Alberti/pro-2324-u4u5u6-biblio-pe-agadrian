@@ -4,21 +4,6 @@ interface Elemento{
     val id: String
 }
 
-interface InterfaceLibro: Elemento{
-    val titulo: String
-    val autor: String
-    val anioPubli: Int
-    val tematica: String
-    val estado: EstadoLibro
-}
-
-
-interface InterfaceUsuario{
-    val id: Int
-    val nombre: String
-    val librosPrestados: MutableList<Libro>
-}
-
 
 fun main() {
     // Instanciar una GestorBiblioteca
@@ -52,13 +37,6 @@ fun main() {
     // Historial de prestamos geeneral
     gestionBiblioteca.consultarHistorialPrestamos()
 
-    // Libros prestados a un usuario en concreto
-    gestionBiblioteca.consultarHistorialUsuario(usuario1)
-
-
-    // Demostrar cómo se puede acceder a la información de los libros y usuarios de manera controlada a través de los métodos públicos sin exponer directamente las propiedades internas.
-
-    println("Acceder a los valores de libro de forma segura:\nID Libro: ${libro.getID()} - Libro: ${libro.getTitulo()} - Autor: ${libro.getAutor()} - AñoPubliacion: ${libro.getAnioPubli()} - Tematica: ${libro.getTematica()}")
 
 
 

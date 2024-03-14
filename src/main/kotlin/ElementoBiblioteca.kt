@@ -1,6 +1,6 @@
 package org.pebiblioteca
 
-abstract class ElementoBiblioteca {
+abstract class ElementoBiblioteca: Prestable {
 
     abstract val id: Int
     abstract val titulo: Int
